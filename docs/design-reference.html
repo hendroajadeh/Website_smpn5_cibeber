@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMP Negeri 5 Cibeber - Portal Resmi</title>
+  <meta name="description" content="Portal Informasi dan Akademik Terpadu SMP Negeri 5 Cibeber - Mendidik Insan Unggul, Berbudi Luhur & Adaptif Era Digital." />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            primary: '#00152f',
+            'primary-container': '#0f2a4a',
+            'on-primary': '#ffffff',
+            'on-primary-container': '#7a92b7',
+            secondary: '#006a61',
+            'secondary-container': '#86f2e4',
+            'secondary-fixed': '#89f5e7',
+            'on-secondary': '#ffffff',
+            surface: '#f8f9ff',
+            'surface-container-lowest': '#ffffff',
+            'surface-container-low': '#eff4ff',
+            'surface-container': '#e5eeff',
+            'surface-container-high': '#dce9ff',
+            'on-surface': '#0b1c30',
+            'on-surface-variant': '#43474e',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' }
+            }
+          },
+          animation: {
+            marquee: 'marquee 35s linear infinite'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+<body class="bg-[#f8f9ff] text-on-surface font-sans antialiased selection:bg-secondary-container selection:text-[#006f66]">
+
+  <!-- HEADER & NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-b border-surface-container/60 shadow-xs">
+    <!-- Top Contact Strip -->
+    <div class="bg-primary-container text-on-primary text-[11px] sm:text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between">
+        <div class="flex items-center gap-4 truncate">
+          <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">mail</span> info@smpn5cibeber.sch.id</span>
+          <span class="hidden md:flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">schedule</span> Senin - Sabtu: 07:00 - 15:00 WIB</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="tel:0812-3456-7890" class="flex items-center gap-1 bg-secondary text-on-secondary px-2.5 py-0.5 rounded-full font-bold text-[10px] sm:text-[11px]">
+            <span class="material-symbols-outlined text-[13px]">call</span>
+            <span>Hotline PPDB: 0812-3456-7890</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-3">
+        <img src="https://lh3.googleusercontent.com/aida/AEtjO1VckNT7hKrw9nLley8NlbXnHL4gnKmjJ3HNHT4kLWB9ft69SaN_k2G4enY-CRgcvsFlxt5tI7hVeXwSoLcDmIz0ZJIGtzlihEb0NpRbZAPdzsLeDUBJrYIvClCEcHrEG0AubsjOXZCQHox4eDc6yQtDe2Q7irHf-ar88YFLjffUoxP-44NX41JruTUOhd7LmBNNja-3gPBD-2neDugHdmdpbKXBTP_-jAHvm0-fH3IRdHyA7BS-xF3x436m" alt="Logo SMPN 5 Cibeber" class="h-10 sm:h-12 w-auto object-contain" />
+        <div class="flex flex-col">
+          <span class="text-sm sm:text-base font-extrabold text-primary tracking-tight">SMPN 5 CIBEBER</span>
+          <span class="text-[10px] sm:text-[11px] text-secondary font-bold uppercase tracking-wider">Sekolah Penggerak</span>
+        </div>
+      </a>
+
+      <!-- Desktop Menu -->
+      <nav class="hidden lg:flex items-center gap-6 text-xs sm:text-sm font-semibold text-primary">
+        <a href="#" class="hover:text-secondary transition-colors">Beranda</a>
+        <a href="#profil-kepsek" class="hover:text-secondary transition-colors">Profil</a>
+        <a href="#visi-misi" class="hover:text-secondary transition-colors">Visi &amp; Misi</a>
+        <a href="#pengumuman-agenda" class="hover:text-secondary transition-colors">Warta &amp; Agenda</a>
+        <a href="#daftar-guru" class="hover:text-secondary transition-colors">Dewan Guru</a>
+        <a href="#fasilitas" class="hover:text-secondary transition-colors">Fasilitas</a>
+        <a href="#galeri" class="hover:text-secondary transition-colors">Galeri</a>
+        <a href="#lokasi" class="hover:text-secondary transition-colors">Kontak</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-2">
+        <button onclick="openModal('modal-ppdb')" class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-secondary text-on-secondary font-bold text-xs sm:text-sm shadow-sm hover:opacity-95 transition-all">
+          <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+          <span>PPDB Online</span>
+        </button>
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-primary hover:bg-surface-container">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-surface-container-lowest border-b border-surface-container px-6 py-4 flex flex-col gap-3 text-sm font-semibold text-primary">
+      <a href="#" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Beranda</a>
+      <a href="#profil-kepsek" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Profil Sekolah</a>
+      <a href="#visi-misi" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Visi &amp; Misi</a>
+      <a href="#pengumuman-agenda" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Warta &amp; Agenda</a>
+      <a href="#daftar-guru" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Dewan Guru</a>
+      <a href="#fasilitas" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Fasilitas</a>
+      <a href="#galeri" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Galeri &amp; Video</a>
+      <a href="#lokasi" onclick="toggleMobileMenu()" class="py-1 hover:text-secondary">Kontak &amp; Lokasi</a>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="pt-[105px] sm:pt-[116px]">
+
+    <!-- HERO SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-4">
+      <div class="relative w-full rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[480px] flex items-center shadow-lg bg-primary">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyFd_yr7H9cSAVTaOkceZNjFY0F6lXMddeLLeR1n2o1O3gvSPIDhlzH0eoz8xeyFkFPN6VzYAcB82W4IppYlKCziZrNjojcKPQeL9VsrtUmaFdQ9tqTLVsHpdXko5kevMGnmsLf7QaiLXclNp6CZ9NAdVlsOUdWsvEVCAqxGJ9y0pRZ8ftNdqf5-C5DOP3NiZ7ITxpSQ-G5cFSU2vIRy0OnCZpuYbajrgJCQTHBZWsUeUtQxW1ZX_xSQ" alt="Kampus SMPN 5 Cibeber" class="absolute inset-0 w-full h-full object-cover opacity-35" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent"></div>
+
+        <div class="relative z-10 p-6 sm:p-12 md:p-16 max-w-3xl flex flex-col gap-4 text-white">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-fixed/20 text-secondary-fixed border border-secondary-fixed/30 text-xs font-bold w-fit">
+            <span class="material-symbols-outlined text-[16px]">verified</span>
+            <span>Terakreditasi A (Unggul) • NPSN 20601894</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+            Mendidik Insan Unggul, Berkarakter &amp; Adaptif Era Digital
+          </h1>
+
+          <p class="text-sm sm:text-base text-gray-200 leading-relaxed max-w-2xl">
+            Selamat datang di Portal Resmi SMP Negeri 5 Cibeber. Berkomitmen menghadirkan ekosistem pembelajaran Kurikulum Merdeka yang ramah anak, berakar pada kearifan lokal, dan berwawasan global.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <button onclick="openModal('modal-ppdb')" class="px-5 py-3 rounded-xl bg-secondary text-white font-bold text-sm shadow-md hover:bg-opacity-90 flex items-center gap-2 transition-all">
+              <span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+              <span>Daftar PPDB Online 2025/2026</span>
+            </button>
+            <a href="#profil-kepsek" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm backdrop-blur-sm transition-all flex items-center gap-2 border border-white/20">
+              <span class="material-symbols-outlined text-[20px]">info</span>
+              <span>Pelajari Profil Sekolah</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticker Pengumuman Berjalan -->
+      <div class="mt-4 p-3 rounded-xl bg-surface-container-low border border-surface-container flex items-center gap-3 overflow-hidden shadow-xs">
+        <span class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-secondary text-white text-[11px] font-bold uppercase tracking-wider shrink-0">
+          <span class="material-symbols-outlined text-[14px]">campaign</span> Pengumuman
+        </span>
+        <div class="overflow-hidden whitespace-nowrap flex-1">
+          <div class="animate-marquee flex items-center gap-8 text-xs font-medium text-primary">
+            <span>📢 Pendaftaran PPDB 2025/2026 Jalur Zonasi &amp; Prestasi Resmi Dibuka.</span>
+            <span>📅 Ujian Asesmen Sumatif Akhir Jenjang Kelas IX dimulai 12 Mei 2025.</span>
+            <span>🏆 Selamat atas Juara 1 Lomba OSN IPA Tingkat Kabupaten diraih siswa SMPN 5 Cibeber!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHORTCUT QUICK MATRIX -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4">
+        <button onclick="openModal('modal-ppdb')" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">how_to_reg</span>
+          </div>
+          <span class="text-xs font-bold text-primary">PPDB Online</span>
+          <span class="text-[10px] text-on-surface-variant">T.A 2025/2026</span>
+        </button>
+
+        <a href="#visi-misi" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">auto_stories</span>
+          </div>
+          <span class="text-xs font-bold text-primary">Kurikulum</span>
+          <span class="text-[10px] text-on-surface-variant">Merdeka</span>
+        </a>
+
+        <a href="#pengumuman-agenda" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">calendar_month</span>
+          </div>
+          <span class="text-xs font-bold text-primary">Kalender</span>
+          <span class="text-[10px] text-on-surface-variant">Agenda</span>
+        </a>
+
+        <a href="#daftar-guru" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">badge</span>
+          </div>
+          <span class="text-xs font-bold text-primary">Dewan Guru</span>
+          <span class="text-[10px] text-on-surface-variant">Pendidik</span>
+        </a>
+
+        <a href="https://belajar.id" target="_blank" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">local_library</span>
+          </div>
+          <span class="text-xs font-bold text-primary">E-Library</span>
+          <span class="text-[10px] text-on-surface-variant">Belajar.id</span>
+        </a>
+
+        <a href="https://raporpendidikan.kemdikbud.go.id" target="_blank" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">analytics</span>
+          </div>
+          <span class="text-xs font-bold text-primary">Rapor Mutu</span>
+          <span class="text-[10px] text-on-surface-variant">Kemdikbud</span>
+        </a>
+
+        <a href="https://siplah.kemdikbud.go.id" target="_blank" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">storefront</span>
+          </div>
+          <span class="text-xs font-bold text-primary">SIPLah</span>
+          <span class="text-[10px] text-on-surface-variant">Pengadaan</span>
+        </a>
+
+        <a href="#lokasi" class="p-3.5 rounded-2xl bg-surface-container-lowest hover:bg-surface-container border border-surface-container/60 flex flex-col items-center text-center shadow-xs transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">location_on</span>
+          </div>
+          <span class="text-xs font-bold text-primary">Kontak</span>
+          <span class="text-[10px] text-on-surface-variant">Peta Lokasi</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SAMBUTAN KEPALA SEKOLAH & VISI MISI -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8" id="profil-kepsek">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Foto & Info Kepsek -->
+        <div class="lg:col-span-4 p-6 rounded-2xl bg-surface-container-lowest shadow-sm border border-surface-container/60">
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-surface-container">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeJ8_X0ds2Z-i5gTFe6fFe_Ol-5QLaSDc3hpOfwCCBb84wS_hzXGyocCfnCerhD8J2qFP6TqYeZemZ1WytbTJHE4zmj8wD4_h6fiwUlFnp4M0dXHWUwkXv2wOv0yz0IOqp25sFCCALDqI6SRWCXlKDRbtPUVRa02xejJzRxPjjrL_bNL2-nB71M3dzNVminhnnTRi6IhaPAkO9InaG9mrrDeDVTnOaZTVTV1pDg0qiPvZJP4Nlbl8eUg" alt="Kepala Sekolah" class="w-full h-full object-cover" />
+            <div class="absolute bottom-3 left-3 right-3 bg-surface-container-lowest/95 backdrop-blur-md p-3 rounded-xl shadow-xs border border-surface-container/40">
+              <p class="text-sm font-bold text-primary">Drs. H. Mulyadi, M.Pd.</p>
+              <p class="text-xs text-secondary font-semibold">Kepala Sekolah SMPN 5 Cibeber</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 text-xs text-on-surface-variant">
+            <div class="flex justify-between p-2 rounded-lg bg-surface-container-low">
+              <span class="font-semibold text-primary">NIP</span>
+              <span class="font-mono">19690412 199412 1 003</span>
+            </div>
+            <div class="flex justify-between p-2 rounded-lg bg-surface-container-low">
+              <span class="font-semibold text-primary">Pangkat / Gol.</span>
+              <span>Pembina Tk. I / IV-b</span>
+            </div>
+            <div class="flex justify-between p-2 rounded-lg bg-surface-container-low">
+              <span class="font-semibold text-primary">Masa Tugas</span>
+              <span>2021 – Sekarang</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sambutan & Visi Misi -->
+        <div class="lg:col-span-8 flex flex-col gap-6">
+          <div class="p-6 sm:p-8 rounded-2xl bg-surface-container-lowest shadow-sm border border-surface-container/60 flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-secondary text-[26px]">format_quote</span>
+              <h2 class="text-xl sm:text-2xl text-primary font-bold">Sambutan Hangat Kepala Sekolah</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-on-surface-variant italic font-medium text-primary">
+              Assalamu’alaikum Warahmatullahi Wabarakatuh, Salam Sejahtera, Om Swastiastu, Namo Buddhaya.
+            </p>
+            <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              Puji dan syukur senantiasa kita panjatkan ke hadirat Allah SWT Tuhan Yang Maha Kuasa. Selamat datang di portal resmi SMP Negeri 5 Cibeber. Di era Kurikulum Merdeka dan akselerasi teknologi, kami berkomitmen mencetak generasi yang cerdas berprestasi, berkarakter Profil Pelajar Pancasila, serta cinta lingkungan hidup.
+            </p>
+          </div>
+
+          <!-- Visi & Misi Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="visi-misi">
+            <div class="p-6 rounded-2xl bg-primary-container text-on-primary shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-secondary-fixed uppercase tracking-wider flex items-center gap-1.5 mb-2">
+                  <span class="material-symbols-outlined text-[18px]">visibility</span> Visi Sekolah
+                </span>
+                <p class="text-base sm:text-lg font-bold text-secondary-fixed leading-snug">
+                  “Mewujudkan Peserta Didik yang Religius, Berkarakter Unggul, Cerdas Berprestasi, dan Berbudaya Lingkungan.”
+                </p>
+              </div>
+              <p class="text-[11px] text-on-primary-container pt-3 border-t border-white/10 mt-4">
+                Menjadi pedoman kurikuler, kokurikuler, dan pembinaan kesiswaan.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-surface-container-lowest shadow-sm border border-surface-container/60 flex flex-col gap-2.5">
+              <span class="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[18px] text-secondary">checklist</span> Misi Pokok Sekolah
+              </span>
+              <ul class="flex flex-col gap-2 text-xs text-on-surface-variant">
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-secondary text-[16px] shrink-0 mt-0.5">check_circle</span>
+                  <span>Menumbuhkan keimanan, ketakwaan, serta nilai budi pekerti luhur.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-secondary text-[16px] shrink-0 mt-0.5">check_circle</span>
+                  <span>Mengoptimalkan pembelajaran Kurikulum Merdeka yang berdiferensiasi.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-secondary text-[16px] shrink-0 mt-0.5">check_circle</span>
+                  <span>Membudayakan literasi digital dan penalaran analitis abad ke-21.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-secondary text-[16px] shrink-0 mt-0.5">check_circle</span>
+                  <span>Mewujudkan kawasan sekolah asri, hijau, dan ramah anak.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEY STATS -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-6 rounded-2xl bg-primary text-on-primary shadow-sm flex flex-col justify-between">
+          <span class="text-xs text-secondary-fixed font-bold uppercase tracking-wider">Pendidik &amp; Tenaga</span>
+          <span class="text-4xl font-extrabold my-2">38+</span>
+          <span class="text-xs text-gray-300">Guru Bersertifikasi</span>
+        </div>
+        <div class="p-6 rounded-2xl bg-secondary text-on-secondary shadow-sm flex flex-col justify-between">
+          <span class="text-xs text-secondary-fixed font-bold uppercase tracking-wider">Peserta Didik</span>
+          <span class="text-4xl font-extrabold my-2">684</span>
+          <span class="text-xs text-gray-200">Siswa Aktif T.A 2024/2025</span>
+        </div>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between">
+          <span class="text-xs text-secondary font-bold uppercase tracking-wider">Alumni Berprestasi</span>
+          <span class="text-4xl font-extrabold text-primary my-2">1,850+</span>
+          <span class="text-xs text-on-surface-variant">Tersebar di SMA/SMK Favorit</span>
+        </div>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col justify-between">
+          <span class="text-xs text-secondary font-bold uppercase tracking-wider">Ekstrakurikuler</span>
+          <span class="text-4xl font-extrabold text-primary my-2">16</span>
+          <span class="text-xs text-on-surface-variant">Klub Minat &amp; Prestasi</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WARTA PENGUMUMAN & AGENDA -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8" id="pengumuman-agenda">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Pengumuman (7 Cols) -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          <h2 class="text-xl sm:text-2xl text-primary font-bold flex items-center gap-2">
+            <span class="w-2.5 h-6 rounded-full bg-secondary"></span> Warta &amp; Pengumuman Sekolah
+          </h2>
+
+          <div class="flex flex-col gap-3">
+            <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row gap-4">
+              <div class="p-3 rounded-xl bg-surface-container-low sm:w-24 text-center shrink-0 flex sm:flex-col items-center justify-between sm:justify-center">
+                <span class="text-xs font-bold text-secondary">14 Apr 2025</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-bold">PPDB</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-sm sm:text-base font-bold text-primary mb-1">Petunjuk Teknis PPDB Jalur Prestasi &amp; Zonasi 2025/2026</h3>
+                <p class="text-xs text-on-surface-variant line-clamp-2">Persyaratan administrasi, kuota jalur afirmasi, mutasi tugas dan jadwal seleksi berkas daring kini telah dapat diakses lengkap.</p>
+              </div>
+            </div>
+
+            <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row gap-4">
+              <div class="p-3 rounded-xl bg-surface-container-low sm:w-24 text-center shrink-0 flex sm:flex-col items-center justify-between sm:justify-center">
+                <span class="text-xs font-bold text-secondary">08 Apr 2025</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-bold">Kurikulum</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-sm sm:text-base font-bold text-primary mb-1">Sosialisasi Gelar Karya P5: Kewirausahaan Berkelanjutan</h3>
+                <p class="text-xs text-on-surface-variant line-clamp-2">Peserta didik kelas VII &amp; VIII akan memamerkan produk olahan lokal dan daur ulang ramah lingkungan di aula sekolah.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agenda (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-4" id="agenda-sekolah">
+          <h2 class="text-xl sm:text-2xl text-primary font-bold flex items-center gap-2">
+            <span class="w-2.5 h-6 rounded-full bg-primary"></span> Agenda Mendatang
+          </h2>
+
+          <div class="flex flex-col gap-3">
+            <div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container shadow-sm flex items-center gap-4">
+              <div class="w-14 h-14 rounded-xl bg-primary text-on-primary flex flex-col items-center justify-center shrink-0">
+                <span class="text-lg font-extrabold leading-none">12</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-secondary-fixed">MEI</span>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold text-secondary">07:30 WIB • Ruang Lab Komputer</span>
+                <h4 class="text-sm font-bold text-primary">Asesmen Sumatif Akhir Jenjang (Kelas IX)</h4>
+                <p class="text-xs text-on-surface-variant">Pelaksanaan ujian berbasis komputer terpusat.</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container shadow-sm flex items-center gap-4">
+              <div class="w-14 h-14 rounded-xl bg-secondary text-on-secondary flex flex-col items-center justify-center shrink-0">
+                <span class="text-lg font-extrabold leading-none">20</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-secondary-fixed">MEI</span>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold text-secondary">08:00 WIB • Lapangan Upacara</span>
+                <h4 class="text-sm font-bold text-primary">Upacara Peringatan Hari Kebangkitan Nasional</h4>
+                <p class="text-xs text-on-surface-variant">Diikuti oleh seluruh dewan guru dan peserta didik.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASILITAS SEKOLAH -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8" id="fasilitas">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <span class="text-xs uppercase tracking-widest text-secondary font-bold">Sarana Pembelajaran</span>
+        <h2 class="text-2xl sm:text-3xl text-primary font-bold mt-1">Fasilitas Lengkap Penunjang Belajar</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm overflow-hidden flex flex-col">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw7d_o9J_N-tE1eR9z_R97bE5uH1-t7jI5oV0rBvW5k_G3T_L8Y_k0" alt="Lab Komputer" class="w-full h-44 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-primary text-sm">Laboratorium Komputer &amp; Multimedia</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Dilengkapi 40 unit PC berkecepatan tinggi dan koneksi fiber optik.</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm overflow-hidden flex flex-col">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyFd_yr7H9cSAVTaOkceZNjFY0F6lXMddeLLeR1n2o1O3gvSPIDhlzH0eoz8xeyFkFPN6VzYAcB82W4IppYlKCziZrNjojcKPQeL9VsrtUmaFdQ9tqTLVsHpdXko5kevMGnmsLf7QaiLXclNp6CZ9NAdVlsOUdWsvEVCAqxGJ9y0pRZ8ftNdqf5-C5DOP3NiZ7ITxpSQ-G5cFSU2vIRy0OnCZpuYbajrgJCQTHBZWsUeUtQxW1ZX_xSQ" alt="Perpustakaan" class="w-full h-44 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-primary text-sm">Perpustakaan Digital Ramah Anak</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Ribuan koleksi buku referensi cetak dan ribuan judul e-book interaktif.</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm overflow-hidden flex flex-col">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLH7ifPhaQTAiYMKXa8rf1YrPmbAUbilq6dvw3BnLpzFuLiSC6OLceYxHBti1nPt-WIFNcoIL0oFqT8bjJKk_HW0PnbHgffo-sk_a_QDS2FU3DWE3vxTjwx2O4-nPNjYCtXHGMxq9MPaPHnJmd8iJiHicAlTuiJQ2YDlXHXYuxXJplWNFeJFxEOn_D7W1JfEKX4fHmNioO6NV62-ByhbIJdUDnK4OpXTpw5Vd4Xh89JmN404Xs_RIlQg" alt="Lab IPA" class="w-full h-44 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-primary text-sm">Laboratorium Sains &amp; Eksperimen</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Peralatan praktikum fisika, biologi, dan mikroskop elektron terkini.</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-surface-container-lowest border border-surface-container shadow-sm overflow-hidden flex flex-col">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeJ8_X0ds2Z-i5gTFe6fFe_Ol-5QLaSDc3hpOfwCCBb84wS_hzXGyocCfnCerhD8J2qFP6TqYeZemZ1WytbTJHE4zmj8wD4_h6fiwUlFnp4M0dXHWUwkXv2wOv0yz0IOqp25sFCCALDqI6SRWCXlKDRbtPUVRa02xejJzRxPjjrL_bNL2-nB71M3dzNVminhnnTRi6IhaPAkO9InaG9mrrDeDVTnOaZTVTV1pDg0qiPvZJP4Nlbl8eUg" alt="Lapangan Olahraga" class="w-full h-44 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-primary text-sm">Lapangan Olahraga Multifungsi</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Area representatif untuk bola basket, futsal, voli, dan upacara bendera.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK & PETA LOKASI -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8" id="lokasi">
+      <div class="p-6 sm:p-8 rounded-3xl bg-surface-container-lowest border border-surface-container shadow-sm flex flex-col gap-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-secondary font-bold">Aksesibilitas Kampus</span>
+            <h2 class="text-2xl text-primary font-bold mt-1">Lokasi Strategis &amp; Peta Sekolah</h2>
+            <p class="text-xs sm:text-sm text-on-surface-variant">Jl. Raya Cibeber Km. 4, Kec. Cibeber, Kab. Lebak / Cianjur, Jawa Barat</p>
+          </div>
+          <a href="https://maps.google.com/?q=SMP+Negeri+5+Cibeber" target="_blank" class="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold flex items-center gap-2 hover:opacity-90 transition-all">
+            <span class="material-symbols-outlined text-[18px]">directions</span> Buka di Google Maps
+          </a>
+        </div>
+
+        <div class="w-full h-72 rounded-2xl overflow-hidden relative shadow-inner bg-cover bg-center flex items-center justify-center p-4" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCm8HJnLHoFTm2Mont4lFquEJWixJsfSsJoTouxMbhPqfhC4obsZfGAs9HDSl0s_SL8lf97Fjt6FzCMZGJ_DOtR4nVtK8i6kXGh738l9fe77ixOOYuxfUijxvDYMYG1X1ZUyz76PQXbjx8Un8cu5G_gqztPnAyfvysCsHXJvj3LUvoQdUgf5t7nLmknuNuRfwsLZ3PbxZRaMmhxd1KqtS3Hk7pirVwgq4mHKc0wvGJELGiW_usKcUMn_Q');">
+          <div class="relative z-10 p-4 rounded-xl bg-surface-container-lowest/95 backdrop-blur-md shadow-lg border border-surface-container flex items-center gap-3 max-w-md">
+            <div class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[20px]">location_on</span>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-primary">Kampus SMPN 5 CIBEBER</p>
+              <p class="text-xs text-on-surface-variant">Jl. Raya Cibeber Km. 4 • Telp: (0252) 203890</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-surface-container-low border-t border-surface-container-high/60 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/aida/AEtjO1VckNT7hKrw9nLley8NlbXnHL4gnKmjJ3HNHT4kLWB9ft69SaN_k2G4enY-CRgcvsFlxt5tI7hVeXwSoLcDmIz0ZJIGtzlihEb0NpRbZAPdzsLeDUBJrYIvClCEcHrEG0AubsjOXZCQHox4eDc6yQtDe2Q7irHf-ar88YFLjffUoxP-44NX41JruTUOhd7LmBNNja-3gPBD-2neDugHdmdpbKXBTP_-jAHvm0-fH3IRdHyA7BS-xF3x436m" alt="Logo" class="h-10 w-auto" />
+            <div>
+              <p class="font-bold text-primary text-sm">SMPN 5 CIBEBER</p>
+              <p class="text-[11px] text-secondary font-semibold">NPSN: 20601894 • Akreditasi A</p>
+            </div>
+          </div>
+          <p class="text-xs text-on-surface-variant leading-relaxed">Mendidik generasi berkarakter Profil Pelajar Pancasila, literat teknologi, berbudaya lingkungan, dan berwawasan global.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-primary uppercase tracking-wider mb-3">Tautan Cepat</h4>
+          <ul class="text-xs text-on-surface-variant flex flex-col gap-2">
+            <li><a href="#" class="hover:text-primary">Beranda Sekolah</a></li>
+            <li><a href="#profil-kepsek" class="hover:text-primary">Profil Kepala Sekolah</a></li>
+            <li><a href="#visi-misi" class="hover:text-primary">Visi &amp; Misi</a></li>
+            <li><a href="#fasilitas" class="hover:text-primary">Fasilitas Sekolah</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-primary uppercase tracking-wider mb-3">Layanan</h4>
+          <ul class="text-xs text-on-surface-variant flex flex-col gap-2">
+            <li><button onclick="openModal('modal-ppdb')" class="hover:text-secondary font-bold text-secondary text-left">PPDB Online 2025/2026</button></li>
+            <li><a href="https://dapo.kemdikbud.go.id" target="_blank" class="hover:text-primary">Portal Dapodik</a></li>
+            <li><a href="https://belajar.id" target="_blank" class="hover:text-primary">Akun Belajar.id</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-primary uppercase tracking-wider mb-3">Kontak Sekolah</h4>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            Jl. Raya Cibeber Km. 4<br />
+            Email: info@smpn5cibeber.sch.id<br />
+            Hotline PPDB: 0812-3456-7890
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-surface-container flex flex-col sm:flex-row items-center justify-between text-xs text-on-surface-variant gap-4">
+        <p>© 2025 SMP Negeri 5 Cibeber. Hak Cipta Dilindungi Undang-Undang.</p>
+        <p>Desain Resmi Portal Sekolah Standar Kemendikbudristek</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL PPDB ONLINE -->
+  <div id="modal-ppdb" class="fixed inset-0 z-50 hidden bg-primary/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-surface-container-lowest rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-surface-container max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-surface-container">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[24px]">how_to_reg</span>
+          <h3 class="font-bold text-primary text-lg">Pendaftaran PPDB Online</h3>
+        </div>
+        <button onclick="closeModal('modal-ppdb')" class="text-gray-400 hover:text-gray-700">
+          <span class="material-symbols-outlined text-[24px]">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handlePpdbSubmit(event)" class="mt-4 flex flex-col gap-4 text-xs sm:text-sm">
+        <div>
+          <label class="font-semibold text-primary block mb-1">Nama Lengkap Siswa</label>
+          <input required type="text" placeholder="Masukkan nama lengkap calon siswa" class="w-full px-3.5 py-2.5 rounded-xl border border-surface-container focus:outline-none focus:border-secondary" />
+        </div>
+        <div>
+          <label class="font-semibold text-primary block mb-1">NISN (Nomor Induk Siswa Nasional)</label>
+          <input required type="text" placeholder="Contoh: 0091823741" class="w-full px-3.5 py-2.5 rounded-xl border border-surface-container focus:outline-none focus:border-secondary" />
+        </div>
+        <div>
+          <label class="font-semibold text-primary block mb-1">Asal Sekolah SD/MI</label>
+          <input required type="text" placeholder="Contoh: SDN 1 Cibeber" class="w-full px-3.5 py-2.5 rounded-xl border border-surface-container focus:outline-none focus:border-secondary" />
+        </div>
+        <div>
+          <label class="font-semibold text-primary block mb-1">Pilihan Jalur Pendaftaran</label>
+          <select class="w-full px-3.5 py-2.5 rounded-xl border border-surface-container focus:outline-none focus:border-secondary bg-white">
+            <option>Jalur Zonasi Domisili (50%)</option>
+            <option>Jalur Prestasi Akademik &amp; Non-Akademik (30%)</option>
+            <option>Jalur Afirmasi KETM (15%)</option>
+            <option>Jalur Perpindahan Tugas Orang Tua (5%)</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold text-primary block mb-1">Nomor WhatsApp Orang Tua / Wali</label>
+          <input required type="tel" placeholder="0812-xxxx-xxxx" class="w-full px-3.5 py-2.5 rounded-xl border border-surface-container focus:outline-none focus:border-secondary" />
+        </div>
+
+        <button type="submit" class="mt-2 w-full py-3 rounded-xl bg-secondary text-white font-bold hover:opacity-95 shadow-md flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">send</span> Kirim Formulir Pendaftaran
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handlePpdbSubmit(e) {
+      e.preventDefault();
+      alert('Terima kasih! Formulir pendaftaran PPDB Anda telah berhasil kami terima. Panitia PPDB SMPN 5 Cibeber akan segera menghubungi nomor WhatsApp Anda.');
+      closeModal('modal-ppdb');
+    }
+  </script>
+</body>
+</html>

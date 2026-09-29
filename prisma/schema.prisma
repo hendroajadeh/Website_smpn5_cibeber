@@ -1,0 +1,162 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ================================
+// AUTH
+// ================================
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// ================================
+// ARTICLES / NEWS
+// ================================
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  imageUrl    String?
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("articles")
+}
+
+// ================================
+// STAFF / KEPENGURUSAN
+// ================================
+model Staff {
+  id        String  @id @default(cuid())
+  name      String
+  position  String
+  level     Int     @default(1) // 1=Kepala, 2=Wakil/Staff, 3=Guru
+  order     Int     @default(0)
+  imageUrl  String?
+  nip       String?
+  education String?
+  email     String?
+  active    Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("staff")
+}
+
+// ================================
+// GALERI
+// ================================
+model Gallery {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String
+  category    String   @default("UMUM") // UMUM, PRESTASI, KEGIATAN, FASILITAS
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("galleries")
+}
+
+// ================================
+// FASILITAS
+// ================================
+model Facility {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  imageUrl    String?
+  category    String   @default("UMUM")
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("facilities")
+}
+
+// ================================
+// PRESTASI
+// ================================
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  level       String   @default("SEKOLAH") // SEKOLAH, KECAMATAN, KOTA, PROVINSI, NASIONAL, INTERNASIONAL
+  year        Int
+  imageUrl    String?
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("achievements")
+}
+
+// ================================
+// PPDB STEPS
+// ================================
+model PpdbStep {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  icon        String  @default("file-text") // phosphor icon name
+  stepOrder   Int
+  active      Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("ppdb_steps")
+}
+
+// ================================
+// SETTINGS (key-value store)
+// ================================
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  label     String?
+  group     String   @default("GENERAL")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+// ================================
+// PPDB APPLICANT
+// ================================
+model PpdbApplicant {
+  id          String   @id @default(cuid())
+  name        String
+  nisn        String   @unique
+  originSchool String
+  pathway     String   @default("ZONASI") // ZONASI, PRESTASI, AFIRMASI, PINDAH
+  status      String   @default("MENUNGGU") // MENUNGGU, TERVERIFIKASI, DITERIMA, DITOLAK
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("ppdb_applicants")
+}

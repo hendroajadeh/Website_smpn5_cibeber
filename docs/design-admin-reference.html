@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin CMS - SMP Negeri 5 Cibeber</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#00152f',
+              950: '#000d1e'
+            },
+            tealbrand: {
+              500: '#006a61',
+              600: '#005851',
+              100: '#d5fbf5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="h-full text-slate-800 font-sans antialiased flex flex-col md:flex-row overflow-hidden bg-slate-50">
+
+  <!-- Mobile Overlay -->
+  <div id="mobile-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-30 hidden md:hidden"></div>
+
+  <!-- Sidebar Navigasi -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-slate-900 text-white flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 md:static shrink-0 border-r border-slate-800">
+    <!-- Brand / Logo Header -->
+    <div class="h-16 flex items-center justify-between px-6 border-b border-slate-800 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-teal-500 text-white flex items-center justify-center font-bold shadow-md shadow-teal-500/20">
+          <span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+        </div>
+        <div>
+          <div class="font-extrabold text-sm tracking-tight text-white">CMS Admin</div>
+          <div class="text-[10px] text-teal-400 font-semibold uppercase tracking-wider">SMPN 5 Cibeber</div>
+        </div>
+      </div>
+      <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white p-1">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Nav List -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-1.5">
+      <div class="px-3 py-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ringkasan & Profil</div>
+      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all bg-white/15 text-white">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">dashboard</span>
+          <span>Dashboard Ikhtisar</span>
+        </div>
+        <span class="bg-teal-500 text-[10px] font-extrabold px-1.5 py-0.5 rounded text-white">Live</span>
+      </button>
+
+      <button onclick="switchTab('identitas')" id="nav-identitas" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">school</span>
+          <span>Identitas & Kontak</span>
+        </div>
+      </button>
+
+      <button onclick="switchTab('kepsek')" id="nav-kepsek" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">psychology</span>
+          <span>Kepsek & Visi Misi</span>
+        </div>
+      </button>
+
+      <div class="px-3 pt-4 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Publikasi Informasi</div>
+      <button onclick="switchTab('warta')" id="nav-warta" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">campaign</span>
+          <span>Warta Pengumuman</span>
+        </div>
+        <span class="bg-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full text-slate-300">3</span>
+      </button>
+
+      <button onclick="switchTab('agenda')" id="nav-agenda" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">calendar_month</span>
+          <span>Agenda Sekolah</span>
+        </div>
+        <span class="bg-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full text-slate-300">4</span>
+      </button>
+
+      <button onclick="switchTab('berita')" id="nav-berita" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">newspaper</span>
+          <span>Artikel Berita</span>
+        </div>
+        <span class="bg-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full text-slate-300">3</span>
+      </button>
+
+      <div class="px-3 pt-4 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Civitas & Sarana</div>
+      <button onclick="switchTab('guru')" id="nav-guru" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">groups</span>
+          <span>Direktori Guru</span>
+        </div>
+        <span class="bg-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full text-slate-300">6</span>
+      </button>
+
+      <button onclick="switchTab('fasilitas')" id="nav-fasilitas" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">apartment</span>
+          <span>Fasilitas & Ekskul</span>
+        </div>
+      </button>
+
+      <div class="px-3 pt-4 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Layanan Masuk</div>
+      <button onclick="switchTab('ppdb')" id="nav-ppdb" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition-all">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[19px]">how_to_reg</span>
+          <span>Pendaftar PPDB</span>
+        </div>
+        <span class="bg-amber-500 text-[10px] font-bold px-2 py-0.5 rounded-full text-slate-900">3 Baru</span>
+      </button>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-slate-800 bg-slate-950/60 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-200">
+        AD
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-xs font-bold text-white truncate">Admin IT Sekolah</p>
+        <p class="text-[10px] text-slate-400 truncate">admin@smpn5cibeber.sch.id</p>
+      </div>
+      <a href="/" title="Kembali ke Web" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10">
+        <span class="material-symbols-outlined text-[18px]">logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Content Wrapper -->
+  <div class="flex-1 flex flex-col h-full overflow-hidden">
+    <!-- Top Bar Header -->
+    <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between shrink-0 shadow-xs z-10">
+      <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="md:hidden text-slate-600 hover:text-slate-900 p-2 rounded-xl bg-slate-100">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div>
+          <h1 id="page-title" class="text-base sm:text-lg font-bold text-slate-900 leading-tight">Dashboard Ikhtisar</h1>
+          <p id="page-subtitle" class="text-[11px] text-slate-500 hidden sm:block">Ringkasan status publikasi & pendaftaran sekolah</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="triggerSaveAll()" class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm shadow-teal-600/20">
+          <span class="material-symbols-outlined text-[18px]">save</span>
+          <span class="hidden sm:inline">Simpan Semua</span>
+        </button>
+        <a href="/" target="_blank" class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all">
+          <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+          <span class="hidden sm:inline">Lihat Web</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Content Scroll Area -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 custom-scrollbar">
+      
+      <!-- TAB 1: DASHBOARD -->
+      <section id="tab-dashboard" class="tab-panel space-y-6">
+        <!-- 4 Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Siswa Aktif</p>
+              <h3 class="text-2xl font-black text-slate-900 mt-1">480</h3>
+              <p class="text-[11px] text-emerald-600 font-semibold mt-1 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">trending_up</span> 100% Terdaftar Dapodik
+              </p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-2xl">groups</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Guru & Staf</p>
+              <h3 class="text-2xl font-black text-slate-900 mt-1">28</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mt-1">24 Guru, 4 Tenaga Teknis</p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-2xl">badge</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Pendaftar PPDB</p>
+              <h3 class="text-2xl font-black text-slate-900 mt-1">3</h3>
+              <p class="text-[11px] text-amber-600 font-semibold mt-1 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">schedule</span> Menunggu Verifikasi
+              </p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-2xl">how_to_reg</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Artikel Berita</p>
+              <h3 class="text-2xl font-black text-slate-900 mt-1">3</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mt-1">1.250 Total Pembaca</p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-2xl">article</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PPDB Alert Banner -->
+        <div class="bg-linear-to-r from-teal-900 to-slate-900 text-white rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="inline-block px-2.5 py-0.5 rounded-full bg-teal-500 text-slate-900 text-[10px] font-extrabold uppercase tracking-wider">
+              PPDB TP 2025/2026 Aktif
+            </span>
+            <h4 class="text-lg font-bold">Terdapat Berkas Formulir Baru yang Perlu Diverifikasi</h4>
+            <p class="text-xs text-slate-300 max-w-xl">
+              Calon peserta didik baru telah melengkapi formulir digital. Anda dapat meninjau data NISN, sekolah asal, dan mengubah status penerimaan.
+            </p>
+          </div>
+          <button onclick="switchTab('ppdb')" class="px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition-all shadow-md shrink-0">
+            Buka Panel PPDB
+          </button>
+        </div>
+      </section>
+
+      <!-- TAB 2: IDENTITAS SEKOLAH -->
+      <section id="tab-identitas" class="tab-panel hidden space-y-6">
+        <form onsubmit="handleFormSave(event)" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-6">
+          <div class="border-b border-slate-100 pb-4">
+            <h3 class="text-base font-bold text-slate-900">Informasi Pokok Lembaga</h3>
+            <p class="text-xs text-slate-500">Kelola nama resmi, NPSN, akreditasi, dan kontak utama yang tampil pada website.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Singkat Sekolah</label>
+              <input type="text" value="SMP Negeri 5 Cibeber" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap & Legal</label>
+              <input type="text" value="Sekolah Menengah Pertama Negeri 5 Cibeber" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">NPSN</label>
+              <input type="text" value="69978648" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Status Akreditasi</label>
+              <input type="text" value="Akreditasi B (BAN-S/M)" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Alamat Lengkap</label>
+              <input type="text" value="Jl. Cikotok - Pelabuhan Ratu KM 07, Desa Mekarmukti, Kec. Cibeber, Kab. Lebak, Banten 42394" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Nomor Telepon / WhatsApp</label>
+              <input type="text" value="+62 858-1234-5678" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Email Resmi</label>
+              <input type="email" value="info@smpn5cibeber.sch.id" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-4 border-t border-slate-100">
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm">
+              Simpan Identitas Sekolah
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- TAB 3: KEPALA SEKOLAH & VISI MISI -->
+      <section id="tab-kepsek" class="tab-panel hidden space-y-6">
+        <form onsubmit="handleFormSave(event)" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-6">
+          <div class="border-b border-slate-100 pb-4">
+            <h3 class="text-base font-bold text-slate-900">Profil Pimpinan & Visi Misi</h3>
+            <p class="text-xs text-slate-500">Ubah sambutan kepala sekolah, foto pimpinan, serta butir visi & misi sekolah.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Kepala Sekolah & Gelar</label>
+              <input type="text" value="Drs. H. Mulyana, M.Pd." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">NIP Kepala Sekolah</label>
+              <input type="text" value="19680512 199303 1 004" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Visi Sekolah</label>
+              <textarea rows="2" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500">Terwujudnya Generasi yang Berakhlak Mulia, Cerdas, Berkarakter, Unggul dalam Prestasi, dan Berwawasan Lingkungan Hidup.</textarea>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1.5">Sambutan Singkat Kepala Sekolah</label>
+              <textarea rows="4" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 focus:outline-teal-500">Assalamu'alaikum Warahmatullahi Wabarakatuh. Selamat datang di portal resmi SMP Negeri 5 Cibeber. Kami berkomitmen menyelenggarakan pendidikan berkualitas, mengasah potensi akademik maupun vokasional, serta membina budi pekerti luhur bagi seluruh tunas bangsa.</textarea>
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-4 border-t border-slate-100">
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm">
+              Perbarui Profil & Sambutan
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- TAB 4: WARTA PENGUMUMAN -->
+      <section id="tab-warta" class="tab-panel hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Kelola Warta Pengumuman</h3>
+              <p class="text-xs text-slate-500">Daftar pengumuman kilat yang disematkan pada bar pengumuman portal.</p>
+            </div>
+            <button onclick="showToast('Fitur Tambah Warta dibuka')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[17px]">add</span> Tambah Warta
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">Judul Warta</th>
+                  <th class="py-3 px-4">Kategori</th>
+                  <th class="py-3 px-4">Tanggal</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50/70">
+                  <td class="py-3.5 px-4 font-bold text-slate-800">PPDB Tahun Ajaran 2025/2026 Jalur Zonasi Resmi Dibuka</td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 font-semibold text-[10px]">PPDB</span></td>
+                  <td class="py-3.5 px-4 text-slate-500">15 Mei 2025</td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Penting</span></td>
+                  <td class="py-3.5 px-4 text-right space-x-1">
+                    <button class="text-slate-400 hover:text-slate-700 p-1"><span class="material-symbols-outlined text-[17px]">edit</span></button>
+                    <button class="text-rose-400 hover:text-rose-600 p-1"><span class="material-symbols-outlined text-[17px]">delete</span></button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/70">
+                  <td class="py-3.5 px-4 font-bold text-slate-800">Jadwal Asesmen Sumatif Akhir Semester Genap</td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-semibold text-[10px]">Akademik</span></td>
+                  <td class="py-3.5 px-4 text-slate-500">10 Mei 2025</td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[10px]">Normal</span></td>
+                  <td class="py-3.5 px-4 text-right space-x-1">
+                    <button class="text-slate-400 hover:text-slate-700 p-1"><span class="material-symbols-outlined text-[17px]">edit</span></button>
+                    <button class="text-rose-400 hover:text-rose-600 p-1"><span class="material-symbols-outlined text-[17px]">delete</span></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: AGENDA SEKOLAH -->
+      <section id="tab-agenda" class="tab-panel hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Agenda & Kalender Kegiatan</h3>
+              <p class="text-xs text-slate-500">Jadwal kegiatan penting yang akan berlangsung.</p>
+            </div>
+            <button onclick="showToast('Fitur Tambah Agenda dibuka')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[17px]">add</span> Tambah Agenda
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex items-start gap-4">
+              <div class="bg-teal-600 text-white rounded-xl p-2.5 text-center min-w-[55px]">
+                <span class="block text-xl font-extrabold leading-none">20</span>
+                <span class="text-[9px] uppercase font-bold tracking-wider">Mei 25</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-xs font-bold text-slate-900 truncate">Rapat Pleno Kelulusan Siswa Kelas IX</h4>
+                <p class="text-[11px] text-slate-500 mt-0.5">Pukul 08.00 WIB • Ruang Guru Utama</p>
+                <div class="mt-3 flex gap-2">
+                  <button class="text-xs text-slate-600 hover:text-slate-900 font-semibold">Sunting</button>
+                  <button class="text-xs text-rose-600 hover:text-rose-700 font-semibold">Hapus</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex items-start gap-4">
+              <div class="bg-sky-600 text-white rounded-xl p-2.5 text-center min-w-[55px]">
+                <span class="block text-xl font-extrabold leading-none">02</span>
+                <span class="text-[9px] uppercase font-bold tracking-wider">Jun 25</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-xs font-bold text-slate-900 truncate">Pelaksanaan Asesmen Akhir Semester</h4>
+                <p class="text-[11px] text-slate-500 mt-0.5">Pukul 07.30 - 12.00 WIB • Seluruh Ruang Kelas</p>
+                <div class="mt-3 flex gap-2">
+                  <button class="text-xs text-slate-600 hover:text-slate-900 font-semibold">Sunting</button>
+                  <button class="text-xs text-rose-600 hover:text-rose-700 font-semibold">Hapus</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: ARTIKEL BERITA -->
+      <section id="tab-berita" class="tab-panel hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Artikel & Berita Terkini</h3>
+              <p class="text-xs text-slate-500">Kelola artikel prestasi, liputan kegiatan, dan dokumentasi sekolah.</p>
+            </div>
+            <button onclick="showToast('Editor Berita dibuka')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[17px]">post_add</span> Tulis Artikel Baru
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border border-slate-200 rounded-2xl overflow-hidden bg-slate-50 flex flex-col">
+              <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&auto=format&fit=crop&q=80" alt="Thumbnail" class="h-36 w-full object-cover" />
+              <div class="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-teal-100 text-teal-800">Prestasi</span>
+                  <h4 class="text-xs font-bold text-slate-900 mt-2 line-clamp-2">Siswa SMPN 5 Cibeber Raih Juara 1 Olimpiade Sains Kabupaten</h4>
+                  <p class="text-[11px] text-slate-500 mt-1 line-clamp-2">Prestasi membanggakan kembali diukir dalam ajang OSN tingkat Kabupaten Lebak.</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs">
+                  <span class="text-slate-400 text-[10px]">12 Mei 2025</span>
+                  <div class="space-x-2">
+                    <button class="text-slate-600 hover:text-slate-900 font-bold">Edit</button>
+                    <button class="text-rose-600 hover:text-rose-700 font-bold">Hapus</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: DIREKTORI GURU -->
+      <section id="tab-guru" class="tab-panel hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Dewan Pendidik & Tenaga Kependidikan</h3>
+              <p class="text-xs text-slate-500">Kelola foto guru, mata pelajaran, dan jabatan struktural.</p>
+            </div>
+            <button onclick="showToast('Form Tambah Guru dibuka')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[17px]">person_add</span> Tambah Tenaga Pendidik
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl bg-slate-200 flex items-center justify-center font-bold text-slate-600 shrink-0">
+                <span class="material-symbols-outlined">person</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-xs font-bold text-slate-900 truncate">Hj. Siti Rohmah, S.Pd.</h4>
+                <p class="text-[11px] text-teal-600 font-semibold truncate">Bahasa Indonesia</p>
+                <p class="text-[10px] text-slate-400">Wakasek Kurikulum</p>
+              </div>
+              <button class="text-slate-400 hover:text-slate-700 p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 8: FASILITAS & EKSKUL -->
+      <section id="tab-fasilitas" class="tab-panel hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-4">
+            <h3 class="text-base font-bold text-slate-900">Sarana, Prasarana & Ekstrakurikuler</h3>
+            <p class="text-xs text-slate-500">Kelola daftar laboratorium, perpustakaan, lapangan olahraga, dan ragam ekskul siswa.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold text-slate-800">Laboratorium IPA & Komputer</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Dilengkapi 32 unit komputer terhubung jaringan internet cepat untuk ANBK.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold text-slate-800">Perpustakaan Digital Ki Hajar Dewantara</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Koleksi 2.500 buku fisik, referensi e-book, dan ruang baca ber-AC.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 9: PENDAFTAR PPDB -->
+      <section id="tab-ppdb" class="tab-panel hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Verifikasi Formulir PPDB Online</h3>
+              <p class="text-xs text-slate-500">Kelola dan ubah status verifikasi calon peserta didik baru.</p>
+            </div>
+            <button onclick="showToast('Data calon siswa diekspor ke Excel')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all">
+              <span class="material-symbols-outlined text-[17px]">download</span> Unduh Rekap (CSV)
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">Nama Calon Siswa</th>
+                  <th class="py-3 px-4">NISN</th>
+                  <th class="py-3 px-4">Asal Sekolah</th>
+                  <th class="py-3 px-4">Jalur</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Ubah Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50/70">
+                  <td class="py-3.5 px-4 font-bold text-slate-900">Ahmad Rizky Pratama</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-600">0098234123</td>
+                  <td class="py-3.5 px-4 text-slate-600">SDN 1 Cibeber</td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-bold text-[10px]">Zonasi</span></td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold text-[10px]">Menunggu Verifikasi</span></td>
+                  <td class="py-3.5 px-4 text-right">
+                    <select onchange="showToast('Status berhasil diubah')" class="px-2.5 py-1 text-xs border border-slate-200 rounded-lg font-semibold bg-white">
+                      <option>Menunggu Verifikasi</option>
+                      <option>Berkas Terverifikasi</option>
+                      <option>Diterima</option>
+                      <option>Tidak Diterima</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/70">
+                  <td class="py-3.5 px-4 font-bold text-slate-900">Nur Aini Septiani</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-600">0098552190</td>
+                  <td class="py-3.5 px-4 text-slate-600">SDN 2 Mekarmukti</td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 font-bold text-[10px]">Prestasi</span></td>
+                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px]">Berkas Terverifikasi</span></td>
+                  <td class="py-3.5 px-4 text-right">
+                    <select onchange="showToast('Status berhasil diubah')" class="px-2.5 py-1 text-xs border border-slate-200 rounded-lg font-semibold bg-white">
+                      <option selected>Berkas Terverifikasi</option>
+                      <option>Diterima</option>
+                      <option>Menunggu Verifikasi</option>
+                      <option>Tidak Diterima</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs font-bold border border-slate-700">
+    <span class="material-symbols-outlined text-teal-400 text-lg">check_circle</span>
+    <span id="toast-message">Perubahan disimpan</span>
+  </div>
+
+  <!-- JavaScript Navigation Logic -->
+  <script>
+    const navTitles = {
+      dashboard: { title: "Dashboard Ikhtisar", subtitle: "Ringkasan status publikasi & pendaftaran sekolah" },
+      identitas: { title: "Identitas Lembaga", subtitle: "Kelola nama sekolah, NPSN, akreditasi, dan kontak resmi" },
+      kepsek: { title: "Kepala Sekolah & Visi Misi", subtitle: "Ubah sambutan pimpinan, NIP, serta visi misi sekolah" },
+      warta: { title: "Warta Pengumuman", subtitle: "Publikasi maklumat penting untuk peserta didik dan wali murid" },
+      agenda: { title: "Agenda Sekolah", subtitle: "Jadwal kalender akademik dan kegiatan resmi" },
+      berita: { title: "Artikel Berita", subtitle: "Koleksi berita prestasi, kegiatan, dan inovasi pendidikan" },
+      guru: { title: "Direktori Guru & Staf", subtitle: "Daftar tenaga pengajar beserta mata pelajaran dan tugas" },
+      fasilitas: { title: "Fasilitas & Ekstrakurikuler", subtitle: "Sarana belajar mengajar dan kegiatan bakat minat" },
+      ppdb: { title: "Verifikasi Pendaftar PPDB", subtitle: "Pemeriksaan kelengkapan berkas calon siswa baru" }
+    };
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobile-overlay');
+      const isClosed = sidebar.classList.contains('-translate-x-full');
+      
+      if (isClosed) {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+      }
+    }
+
+    function switchTab(tabId) {
+      // Hide all panels
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Show selected panel
+      const target = document.getElementById('tab-' + tabId);
+      if (target) {
+        target.classList.remove('hidden');
+      }
+
+      // Update button styling
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-white/15', 'text-white', 'font-bold');
+        btn.classList.add('text-slate-300', 'font-semibold');
+      });
+      const activeBtn = document.getElementById('nav-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-white/15', 'text-white', 'font-bold');
+        activeBtn.classList.remove('text-slate-300', 'font-semibold');
+      }
+
+      // Update page title
+      if (navTitles[tabId]) {
+        document.getElementById('page-title').innerText = navTitles[tabId].title;
+        document.getElementById('page-subtitle').innerText = navTitles[tabId].subtitle;
+      }
+
+      // Close mobile drawer if open
+      if (window.innerWidth < 768) {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.add('-translate-x-full');
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    function handleFormSave(e) {
+      e.preventDefault();
+      showToast('Perubahan berhasil disimpan!');
+    }
+
+    function triggerSaveAll() {
+      showToast('Seluruh data CMS berhasil diperbarui secara instan!');
+    }
+  </script>
+</body>
+</html>
