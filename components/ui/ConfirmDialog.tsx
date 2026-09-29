@@ -21,15 +21,15 @@ export default function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onCancel} />
+      <div className="absolute inset-0 bg-[#164325]/45 backdrop-blur-sm" onClick={onCancel} />
       <div className="relative card p-6 w-full max-w-sm shadow-lg space-y-4">
         <div className="flex items-start gap-3">
-          <div className="h-10 w-10 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center shrink-0">
+          <div className="h-10 w-10 rounded-full bg-red-50 flex items-center justify-center shrink-0">
             <WarningCircle size={20} className="text-red-500" weight="fill" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-900 dark:text-zinc-100 text-sm">{title}</h3>
-            <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1 leading-relaxed">{message}</p>
+            <h3 className="font-bold text-[#1E293B] text-sm">{title}</h3>
+            <p className="text-xs text-slate-500 mt-1 leading-relaxed">{message}</p>
           </div>
         </div>
         <div className="flex gap-3 justify-end pt-2">

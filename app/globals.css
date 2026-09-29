@@ -1,29 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #00152f;
-  --color-primary-container: #0f2a4a;
-  --color-on-primary: #ffffff;
-  --color-on-primary-container: #7a92b7;
-  
-  --color-secondary: #006a61;
-  --color-secondary-container: #86f2e4;
-  --color-secondary-fixed: #89f5e7;
-  --color-on-secondary: #ffffff;
-  
-  --color-surface: #f8f9ff;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #eff4ff;
-  --color-surface-container: #e5eeff;
-  --color-surface-container-high: #dce9ff;
-  
-  --color-on-surface: #0b1c30;
-  --color-on-surface-variant: #43474e;
-  
-  --font-sans: var(--font-sans), sans-serif;
-}
-
-
 /* ================================================
    DESIGN TOKENS — SMPN 5 Cibeber
    Based on DESIGN.md: Trust Navy + institutional
@@ -31,33 +7,37 @@
 
 @layer base {
   :root {
-    /* Brand */
-    --color-brand: #1e3a8a;
-    --color-brand-hover: #172554;
-    --color-brand-light: #dbeafe;
+    /* Brand — Academic Green (#1E5631) */
+    --color-brand: #1E5631;
+    --color-brand-hover: #164325;
+    --color-brand-light: #eaf4ed;
+    --color-brand-dark: #164325;
 
-    /* Accent */
-    --color-accent: #f59e0b;
+    /* Accent / Highlight — Achievement Gold (#D97706) */
+    --color-accent: #D97706;
+    --color-accent-hover: #b45309;
+    --color-accent-light: #fef3c7;
+    --color-accent-dark: #92400e;
 
-    /* Light mode surfaces */
-    --color-bg: #f8fafc;
-    --color-surface: #ffffff;
+    /* Light mode surfaces — Soft Gray Light (#F8FAFC) & Pure White (#FFFFFF) */
+    --color-bg: #F8FAFC;
+    --color-surface: #FFFFFF;
     --color-border: #e2e8f0;
     --color-border-strong: #cbd5e1;
 
-    /* Light mode text */
-    --color-text-heading: #0f172a;
-    --color-text-body: #334155;
+    /* Light mode text — Dark Charcoal (#1E293B) & Academic Green (#1E5631) */
+    --color-text-heading: #1E5631;
+    --color-text-body: #1E293B;
     --color-text-muted: #64748b;
     --color-text-subtle: #94a3b8;
 
     /* Status */
-    --color-success: #10b981;
-    --color-warning: #f59e0b;
+    --color-success: #1E5631;
+    --color-warning: #D97706;
     --color-danger: #ef4444;
-    --color-info: #3b82f6;
+    --color-info: #2563eb;
 
-    /* Radius — Concentric system per DESIGN.md */
+    /* Radius — Concentric system */
     --radius-sm: 6px;
     --radius-md: 8px;
     --radius-lg: 12px;
@@ -69,7 +49,21 @@
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
   }
 
+  .dark {
+    --color-bg: #F8FAFC;
+    --color-surface: #FFFFFF;
+    --color-border: #e2e8f0;
+    --color-border-strong: #cbd5e1;
 
+    --color-text-heading: #1E5631;
+    --color-text-body: #1E293B;
+    --color-text-muted: #64748b;
+    --color-text-subtle: #94a3b8;
+
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  }
 
   * {
     box-sizing: border-box;
@@ -82,9 +76,9 @@
   }
 
   body {
-    background-color: var(--color-surface);
-    color: var(--color-on-surface);
-    font-family: var(--font-sans), system-ui, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text-body);
+    font-family: var(--font-outfit), system-ui, sans-serif;
     line-height: 1.6;
   }
 
@@ -127,25 +121,13 @@
   }
 }
 
-/* --- Reduced Motion --- */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* ================================================
    COMPONENT LAYER
    ================================================ */
 
 @layer components {
 
-  /* --- Buttons --- */
+  /* --- Buttons with Smooth Tactile Animation --- */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -155,40 +137,80 @@
     font-weight: 600;
     font-size: 0.8125rem;
     line-height: 1;
-    padding: 0.625rem 1rem;
-    transition: all 0.15s ease;
+    padding: 0.625rem 1.125rem;
     cursor: pointer;
     white-space: nowrap;
     text-decoration: none;
     border: 1px solid transparent;
+    user-select: none;
+    position: relative;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
   }
 
   .btn:active {
-    transform: scale(0.98);
+    transform: translateY(1px) scale(0.96);
+    transition-duration: 0.08s;
   }
 
   .btn-primary {
     background-color: var(--color-brand);
     color: #ffffff;
     border-color: var(--color-brand);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 2px 6px -1px rgba(30, 86, 49, 0.3), 0 1px 3px 0 rgba(0, 0, 0, 0.06);
   }
 
   .btn-primary:hover {
     background-color: var(--color-brand-hover);
     border-color: var(--color-brand-hover);
+    box-shadow: 0 8px 16px -2px rgba(30, 86, 49, 0.35), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .btn-primary:active {
+    box-shadow: 0 1px 3px 0 rgba(30, 86, 49, 0.25);
+  }
+
+  /* Achievement Gold Button (PPDB & Pendaftaran) */
+  .btn-gold, .btn-ppdb, .btn-accent {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+    box-shadow: 0 2px 8px -1px rgba(217, 119, 6, 0.35), 0 1px 3px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-gold:hover, .btn-ppdb:hover, .btn-accent:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    box-shadow: 0 8px 18px -2px rgba(217, 119, 6, 0.45), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .btn-gold:active, .btn-ppdb:active, .btn-accent:active {
+    box-shadow: 0 1px 3px 0 rgba(217, 119, 6, 0.25);
   }
 
   .btn-secondary {
     background-color: var(--color-surface);
     color: var(--color-text-body);
     border-color: var(--color-border);
-    box-shadow: var(--shadow-xs);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
   }
 
   .btn-secondary:hover {
-    background-color: var(--color-bg);
-    border-color: var(--color-border-strong);
+    background-color: var(--color-brand-light);
+    color: var(--color-brand);
+    border-color: rgba(30, 86, 49, 0.3);
+    box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-secondary:active {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
   }
 
   .btn-danger {
@@ -201,7 +223,15 @@
     background-color: #fecaca;
   }
 
+  .dark .btn-danger {
+    background-color: rgb(239 68 68 / 0.15);
+    color: #f87171;
+    border-color: rgb(239 68 68 / 0.25);
+  }
 
+  .dark .btn-danger:hover {
+    background-color: rgb(239 68 68 / 0.25);
+  }
 
   .btn-ghost {
     background-color: transparent;
@@ -237,8 +267,8 @@
   }
 
   .card-interactive:hover {
-    border-color: rgb(30 58 138 / 0.3);
-    transform: translateY(-1px);
+    border-color: rgba(30, 86, 49, 0.35);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
   }
 
@@ -263,7 +293,7 @@
 
   .input:focus {
     border-color: var(--color-brand);
-    box-shadow: 0 0 0 3px rgb(30 58 138 / 0.1);
+    box-shadow: 0 0 0 3px rgba(30, 86, 49, 0.15);
   }
 
   .input::placeholder {
@@ -340,10 +370,27 @@
   .badge-brand {
     background-color: var(--color-brand-light);
     color: var(--color-brand);
-    border-color: rgb(30 58 138 / 0.2);
+    border-color: rgba(30, 86, 49, 0.2);
   }
 
+  .dark .badge-brand {
+    background-color: rgba(30, 86, 49, 0.3);
+    color: #86efac;
+    border-color: rgba(30, 86, 49, 0.4);
+  }
 
+  /* Achievement Gold Badge (#D97706) */
+  .badge-gold, .badge-achievement {
+    background-color: #fef3c7;
+    color: #b45309;
+    border-color: #fde68a;
+  }
+
+  .dark .badge-gold, .dark .badge-achievement {
+    background-color: rgba(217, 119, 6, 0.2);
+    color: #fcd34d;
+    border-color: rgba(217, 119, 6, 0.35);
+  }
 
   .badge-success {
     background-color: #d1fae5;
@@ -351,7 +398,11 @@
     border-color: #a7f3d0;
   }
 
-
+  .dark .badge-success {
+    background-color: rgb(16 185 129 / 0.15);
+    color: #34d399;
+    border-color: rgb(16 185 129 / 0.25);
+  }
 
   .badge-warning {
     background-color: #fef3c7;
@@ -365,7 +416,11 @@
     border-color: #fecaca;
   }
 
-
+  .dark .badge-danger {
+    background-color: rgb(239 68 68 / 0.15);
+    color: #f87171;
+    border-color: rgb(239 68 68 / 0.25);
+  }
 
   .badge-gray {
     background-color: #f1f5f9;
@@ -373,7 +428,11 @@
     border-color: #e2e8f0;
   }
 
-
+  .dark .badge-gray {
+    background-color: rgb(63 63 70 / 0.5);
+    color: #a1a1aa;
+    border-color: #3f3f46;
+  }
 
   /* --- Divider --- */
   .divider {

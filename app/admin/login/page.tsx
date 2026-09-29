@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useTransition } from 'react';
 import { loginAction } from '@/actions/auth';
@@ -22,28 +22,28 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[#f8fafc] dark:bg-zinc-950 flex items-center justify-center p-4">
+    <div className="min-h-[100dvh] bg-[#f8fafc] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex h-14 w-14 rounded-2xl bg-[#1e3a8a] items-center justify-center mb-4 shadow-md">
             <GraduationCap size={28} weight="fill" className="text-white" />
           </div>
-          <h1 className="text-xl font-bold text-slate-900 dark:text-zinc-100 tracking-tight">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
             Panel Admin
           </h1>
-          <p className="text-sm text-slate-500 dark:text-zinc-400 mt-1">SMPN 5 Cibeber</p>
+          <p className="text-sm text-slate-500 mt-1">SMPN 5 Cibeber</p>
         </div>
 
         {/* Form */}
         <div className="card p-6 space-y-5">
           <div>
-            <h2 className="text-sm font-semibold text-slate-700 dark:text-zinc-300">Masuk ke akun admin</h2>
+            <h2 className="text-sm font-semibold text-slate-700">Masuk ke akun admin</h2>
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/30 p-3">
-              <p className="text-xs font-medium text-red-600 dark:text-red-400">{error}</p>
+            <div className="rounded-lg bg-red-50 border border-red-200 p-3">
+              <p className="text-xs font-medium text-red-600">{error}</p>
             </div>
           )}
 
@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeSlash size={16} /> : <Eye size={16} />}
@@ -101,7 +101,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-slate-400 dark:text-zinc-600 mt-6">
+        <p className="text-center text-xs text-slate-400 mt-6">
           Hanya untuk administrator sekolah yang berwenang.
         </p>
       </div>

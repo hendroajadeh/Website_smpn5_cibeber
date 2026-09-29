@@ -36,14 +36,14 @@ export function truncate(str: string, length: number): string {
 
 export function getLevelBadge(level: string): { label: string; class: string } {
   const map: Record<string, { label: string; class: string }> = {
-    SEKOLAH: { label: 'Sekolah', class: 'badge-gray' },
-    KECAMATAN: { label: 'Kecamatan', class: 'badge-brand' },
-    KOTA: { label: 'Kabupaten/Kota', class: 'badge-brand' },
-    PROVINSI: { label: 'Provinsi', class: 'badge-success' },
-    NASIONAL: { label: 'Nasional', class: 'badge-warning' },
-    INTERNASIONAL: { label: 'Internasional', class: 'badge-danger' },
+    SEKOLAH: { label: 'Tingkat Sekolah', class: 'badge-gray' },
+    KECAMATAN: { label: 'Tingkat Kecamatan', class: 'badge-gold' },
+    KOTA: { label: 'Tingkat Kab/Kota', class: 'badge-gold' },
+    PROVINSI: { label: 'Tingkat Provinsi', class: 'badge-gold' },
+    NASIONAL: { label: 'Tingkat Nasional', class: 'badge-gold' },
+    INTERNASIONAL: { label: 'Tingkat Internasional', class: 'badge-gold' },
   };
-  return map[level] ?? { label: level, class: 'badge-gray' };
+  return map[level] ?? { label: level, class: 'badge-gold' };
 }
 
 export function getCategoryLabel(category: string): string {

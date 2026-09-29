@@ -1,12 +1,16 @@
-'use client';
+﻿'use client';
 
 import { useState, useTransition } from 'react';
+import Image from 'next/image';
 import type { Article } from '@prisma/client';
+import {
+  Plus, PencilSimple, Trash, Eye, EyeSlash, Newspaper,
+} from '@phosphor-icons/react';
 import Toast from '@/components/ui/Toast';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 import { deleteArticle, toggleArticlePublish } from '@/actions/articles';
 import ArticleForm from './ArticleForm';
-import { formatDateShort } from '@/lib/utils';
+import { formatDateShort, slugify } from '@/lib/utils';
 
 type Props = { articles: Article[] };
 
@@ -34,6 +38,7 @@ export default function AdminBeritaClient({ articles: initial }: Props) {
 
   function onFormSuccess() {
     setView('list');
+    // Reload page to get fresh data
     window.location.reload();
   }
 
@@ -90,58 +95,98 @@ export default function AdminBeritaClient({ articles: initial }: Props) {
         />
       )}
 
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
-          <div>
-            <h3 className="text-base font-bold text-slate-900">Artikel & Berita Terkini</h3>
-            <p className="text-xs text-slate-500">Kelola artikel prestasi, liputan kegiatan, dan dokumentasi sekolah.</p>
-          </div>
-          <button onClick={openCreate} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-sm">
-            <span className="material-symbols-outlined text-[17px]">post_add</span> Tulis Artikel Baru
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Berita</h1>
+          <p className="text-sm text-slate-500 mt-0.5">{articles.length} artikel</p>
+        </div>
+        <button onClick={openCreate} className="btn btn-primary">
+          <Plus size={15} weight="bold" />
+          Tambah Berita
+        </button>
+      </div>
+
+      {articles.length === 0 ? (
+        <div className="card p-16 text-center">
+          <Newspaper size={36} className="text-slate-300 mx-auto mb-3" />
+          <p className="text-slate-500 font-medium text-sm">Belum ada berita.</p>
+          <button onClick={openCreate} className="btn btn-primary btn-sm mt-4 mx-auto">
+            Tambah Berita Pertama
           </button>
         </div>
-
-        {articles.length === 0 ? (
-          <div className="py-8 text-center border border-dashed border-slate-200 rounded-xl bg-slate-50">
-            <span className="material-symbols-outlined text-4xl text-slate-300">newspaper</span>
-            <p className="text-sm font-semibold text-slate-500 mt-2">Belum ada berita yang diterbitkan.</p>
+      ) : (
+        <div className="card p-0 overflow-hidden">
+          <div className="table-container border-0 rounded-none">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Berita</th>
+                  <th>Status</th>
+                  <th>Tanggal</th>
+                  <th className="text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {articles.map((article) => (
+                  <tr key={article.id}>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="h-12 w-16 rounded-md overflow-hidden bg-slate-100 shrink-0">
+                          {article.imageUrl ? (
+                            <Image src={article.imageUrl} alt="" width={64} height={48} className="object-cover w-full h-full" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <Newspaper size={14} className="text-slate-300" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-slate-900 truncate max-w-xs">{article.title}</p>
+                          <p className="text-xs text-slate-400 font-mono truncate max-w-xs">{article.slug}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className={`badge ${article.published ? 'badge-success' : 'badge-gray'}`}>
+                        {article.published ? 'Publik' : 'Draft'}
+                      </span>
+                    </td>
+                    <td className="text-xs text-slate-400 font-mono whitespace-nowrap">
+                      {formatDateShort(article.createdAt)}
+                    </td>
+                    <td>
+                      <div className="flex items-center justify-end gap-1">
+                        <button
+                          onClick={() => handleTogglePublish(article.id)}
+                          disabled={isPending}
+                          className="btn btn-ghost btn-sm"
+                          title={article.published ? 'Sembunyikan' : 'Publikasikan'}
+                        >
+                          {article.published ? <EyeSlash size={14} /> : <Eye size={14} />}
+                        </button>
+                        <button
+                          onClick={() => openEdit(article)}
+                          className="btn btn-ghost btn-sm"
+                          title="Edit"
+                        >
+                          <PencilSimple size={14} />
+                        </button>
+                        <button
+                          onClick={() => setDeleteId(article.id)}
+                          className="btn btn-ghost btn-sm text-red-500 hover:text-red-600"
+                          title="Hapus"
+                        >
+                          <Trash size={14} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {articles.map((article) => (
-              <div key={article.id} className="border border-slate-200 rounded-2xl overflow-hidden bg-slate-50 flex flex-col group transition-colors hover:border-teal-200">
-                <div className="h-36 w-full bg-slate-200 relative overflow-hidden flex items-center justify-center text-slate-400">
-                  {article.imageUrl ? (
-                    <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  ) : (
-                    <span className="material-symbols-outlined text-4xl">newspaper</span>
-                  )}
-                  {!article.published && (
-                    <div className="absolute top-2 right-2 px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">Draft</div>
-                  )}
-                </div>
-                <div className="p-4 flex-1 flex flex-col justify-between">
-                  <div>
-                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-teal-100 text-teal-800">Berita</span>
-                    <h4 className="text-xs font-bold text-slate-900 mt-2 line-clamp-2">{article.title}</h4>
-                    <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">{article.excerpt || 'Tidak ada ringkasan.'}</p>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs">
-                    <span className="text-slate-400 text-[10px]">{formatDateShort(article.createdAt)}</span>
-                    <div className="space-x-2">
-                      <button onClick={() => handleTogglePublish(article.id)} disabled={isPending} className="text-slate-600 hover:text-teal-600 font-bold" title={article.published ? "Jadikan Draft" : "Publikasikan"}>
-                        {article.published ? 'Hide' : 'Publish'}
-                      </button>
-                      <button onClick={() => openEdit(article)} className="text-slate-600 hover:text-slate-900 font-bold">Edit</button>
-                      <button onClick={() => setDeleteId(article.id)} className="text-rose-600 hover:text-rose-700 font-bold">Hapus</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

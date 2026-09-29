@@ -1,73 +1,68 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import { db } from '@/lib/db';
-import { formatDateShort } from '@/lib/utils';
+import ArticleSearchFilter, { ArticleItem } from '@/components/ui/ArticleSearchFilter';
 import { Newspaper } from '@phosphor-icons/react/dist/ssr';
+import MegaMendungPattern from '@/components/ui/MegaMendungPattern';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Berita',
-  description: 'Berita dan informasi terbaru seputar kegiatan SMPN 5 Cibeber.',
+  title: 'Warta & Pengumuman Sekolah',
+  description: 'Kabar terkini seputar kegiatan belajar, agenda sekolah, pengumuman, dan prestasi SMPN 5 Cibeber.',
 };
 
 export default async function BeritaPage() {
-  const articles = await db.article.findMany({
+  const rawArticles = await db.article.findMany({
     where: { published: true },
     orderBy: { publishedAt: 'desc' },
   });
 
-  return (
-    <div className="section-padding">
-      <div className="container-site">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-zinc-100 tracking-tight">Berita Terkini</h1>
-          <p className="text-slate-500 dark:text-zinc-400 mt-2">Informasi terbaru seputar kegiatan SMPN 5 Cibeber</p>
-        </div>
+  const articles: ArticleItem[] = rawArticles.map((a) => ({
+    id: a.id,
+    title: a.title,
+    slug: a.slug,
+    excerpt: a.excerpt,
+    imageUrl: a.imageUrl,
+    createdAt: a.createdAt,
+    publishedAt: a.publishedAt,
+  }));
 
-        {articles.length === 0 ? (
-          <div className="card p-16 text-center">
-            <Newspaper size={40} className="text-slate-300 dark:text-zinc-600 mx-auto mb-3" />
-            <p className="text-slate-500 dark:text-zinc-400 font-medium">Belum ada berita yang dipublikasikan.</p>
+  return (
+    <div>
+      {/* Hero Banner Warta — Background Hijau Institusional dengan Siluet Mega Mendung Putih */}
+      <section className="relative overflow-hidden text-white py-16 md:py-20 bg-gradient-to-b from-[#1E5631] via-[#1E5631] to-[#143e22] border-b border-emerald-950/20">
+        {/* Siluet Batik Mega Mendung Warna Putih Khusus Latar Hijau */}
+        <MegaMendungPattern variant="white" opacity="opacity-[0.18]" />
+
+        <div className="container-site relative z-10 text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-bold text-amber-300 shadow-sm">
+            <Newspaper size={16} weight="fill" />
+            <span>Pusat Informasi &amp; Publikasi</span>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/berita/${article.slug}`}
-                className="card card-interactive p-0 overflow-hidden flex flex-col group"
-              >
-                <div className="aspect-video relative bg-slate-100 dark:bg-zinc-800">
-                  {article.imageUrl ? (
-                    <Image
-                      src={article.imageUrl}
-                      alt={article.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Newspaper size={32} className="text-slate-300 dark:text-zinc-600" />
-                    </div>
-                  )}
-                </div>
-                <div className="p-5 flex-1 flex flex-col gap-2">
-                  <p className="text-[11px] text-slate-400 dark:text-zinc-500 font-mono">
-                    {formatDateShort(article.publishedAt ?? article.createdAt)}
-                  </p>
-                  <h2 className="text-sm font-bold text-slate-900 dark:text-zinc-100 leading-snug group-hover:text-[#1e3a8a] dark:group-hover:text-blue-300 transition-colors">
-                    {article.title}
-                  </h2>
-                  <p className="text-xs text-slate-500 dark:text-zinc-400 leading-relaxed line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                </div>
-              </Link>
-            ))}
+
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+            Warta &amp; Agenda Sekolah
+          </h1>
+
+          <p className="text-sm sm:text-base text-emerald-50 max-w-2xl mx-auto leading-relaxed drop-shadow-sm font-medium">
+            Ikuti dinamika kegiatan kesiswaan, rilis pengumuman akademik resmi, liputan prestasi, dan agenda penting di lingkungan SMPN 5 Cibeber.
+          </p>
+
+          <div className="pt-2 flex flex-wrap justify-center gap-2.5 text-xs">
+            <span className="px-3.5 py-1.5 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold shadow-xs">
+              {articles.length} Artikel Terbit
+            </span>
           </div>
-        )}
-      </div>
+        </div>
+      </section>
+
+      {/* Katalog Berita & Filter Pencarian dengan Siluet Batik Mega Mendung */}
+      <section className="relative overflow-hidden section-padding bg-gradient-to-b from-[#F8FAFC] via-white to-[#F8FAFC]">
+        {/* Siluet Batik Mega Mendung Khas Jawa Barat */}
+        <MegaMendungPattern opacity="opacity-[0.13]" />
+
+        <div className="container-site relative z-10">
+          <ArticleSearchFilter articles={articles} />
+        </div>
+      </section>
     </div>
   );
 }

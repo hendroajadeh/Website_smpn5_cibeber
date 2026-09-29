@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { db } from '@/lib/db';
 import { formatDate } from '@/lib/utils';
 import { ArrowLeft, CalendarBlank } from '@phosphor-icons/react/dist/ssr';
+import MegaMendungPattern from '@/components/ui/MegaMendungPattern';
 import type { Metadata } from 'next';
 
 type Props = {
@@ -27,20 +28,25 @@ export default async function ArticleDetailPage({ params }: Props) {
   if (!article) notFound();
 
   return (
-    <div className="section-padding">
-      <div className="container-site">
+    <div className="relative overflow-hidden section-padding bg-gradient-to-b from-[#F8FAFC] via-white to-[#F8FAFC]">
+      {/* Siluet Batik Mega Mendung Khas Jawa Barat */}
+      <MegaMendungPattern opacity="opacity-[0.11]" />
+
+      <div className="container-site relative z-10">
         <div className="max-w-3xl mx-auto">
-          <Link href="/berita" className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-zinc-400 hover:text-[#1e3a8a] dark:hover:text-blue-300 transition-colors mb-6">
-            <ArrowLeft size={16} />
+          <Link href="/berita" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-[#1E5631] active:scale-95 transition-all mb-6 font-medium">
+            <ArrowLeft size={16} weight="bold" />
             Kembali ke Berita
           </Link>
 
-          <article>
+          {/* Card / Container — Pure White (#FFFFFF) for Wadah Berita / Artikel */}
+          <article className="card p-6 sm:p-10 bg-white border border-slate-200/90 rounded-3xl shadow-xs">
             <header className="mb-6 space-y-4">
-              <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-zinc-100 tracking-tight leading-tight">
+              {/* Judul Utama — Academic Green (#1E5631) */}
+              <h1 className="text-2xl md:text-3xl font-extrabold text-[#1E5631] tracking-tight leading-tight">
                 {article.title}
               </h1>
-              <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-zinc-400">
+              <div className="flex items-center gap-2 text-sm text-slate-500">
                 <CalendarBlank size={15} />
                 <time dateTime={(article.publishedAt ?? article.createdAt).toISOString()}>
                   {formatDate(article.publishedAt ?? article.createdAt)}
@@ -49,7 +55,7 @@ export default async function ArticleDetailPage({ params }: Props) {
             </header>
 
             {article.imageUrl && (
-              <div className="relative aspect-video rounded-xl overflow-hidden mb-8 bg-slate-100 dark:bg-zinc-800">
+              <div className="relative aspect-video rounded-2xl overflow-hidden mb-8 bg-slate-100">
                 <Image
                   src={article.imageUrl}
                   alt={article.title}
@@ -61,8 +67,9 @@ export default async function ArticleDetailPage({ params }: Props) {
               </div>
             )}
 
+            {/* Teks isi berita & deskripsi — Dark Charcoal (#1E293B) */}
             <div
-              className="prose-content"
+              className="prose-content text-[#1E293B]"
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
           </article>

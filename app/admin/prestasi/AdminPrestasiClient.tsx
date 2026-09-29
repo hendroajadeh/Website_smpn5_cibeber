@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useTransition } from 'react';
 import type { Achievement } from '@prisma/client';
@@ -67,7 +67,7 @@ export default function AdminPrestasiClient({ achievements: initial }: Props) {
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={closeForm} />
           <div className="relative card p-6 w-full max-w-md shadow-lg space-y-4 max-h-[90dvh] overflow-y-auto">
             <div className="flex items-center justify-between">
-              <h2 className="font-bold text-slate-900 dark:text-zinc-100 text-sm">{editing ? 'Edit Prestasi' : 'Tambah Prestasi'}</h2>
+              <h2 className="font-bold text-slate-900 text-sm">{editing ? 'Edit Prestasi' : 'Tambah Prestasi'}</h2>
               <button onClick={closeForm} className="btn btn-ghost btn-sm"><X size={14} /></button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -91,13 +91,6 @@ export default function AdminPrestasiClient({ achievements: initial }: Props) {
                   <input name="year" type="number" min="2000" max="2100" required defaultValue={editing?.year ?? new Date().getFullYear()} className="input" disabled={isPending} />
                 </div>
               </div>
-              <div className="form-group">
-                <label className="label">Foto Prestasi (Opsional)</label>
-                <input name="image" type="file" accept="image/*" className="input text-xs" disabled={isPending} />
-                {editing?.imageUrl && (
-                  <p className="form-hint mt-1">Biarkan kosong jika tidak ingin mengubah foto.</p>
-                )}
-              </div>
               <div className="flex gap-2 pt-2">
                 <button type="button" onClick={closeForm} disabled={isPending} className="btn btn-secondary flex-1">Batal</button>
                 <button type="submit" disabled={isPending} className="btn btn-primary flex-1">
@@ -112,16 +105,16 @@ export default function AdminPrestasiClient({ achievements: initial }: Props) {
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-zinc-100 tracking-tight">Prestasi</h1>
-          <p className="text-sm text-slate-500 dark:text-zinc-400 mt-0.5">{achievements.length} item</p>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Prestasi</h1>
+          <p className="text-sm text-slate-500 mt-0.5">{achievements.length} item</p>
         </div>
         <button onClick={openCreate} className="btn btn-primary"><Plus size={15} weight="bold" />Tambah Prestasi</button>
       </div>
 
       {achievements.length === 0 ? (
         <div className="card p-16 text-center">
-          <Trophy size={36} className="text-slate-300 dark:text-zinc-600 mx-auto mb-3" />
-          <p className="text-slate-500 dark:text-zinc-400 font-medium text-sm">Belum ada data prestasi.</p>
+          <Trophy size={36} className="text-slate-300 mx-auto mb-3" />
+          <p className="text-slate-500 font-medium text-sm">Belum ada data prestasi.</p>
         </div>
       ) : (
         <div className="card p-0 overflow-hidden">
@@ -134,15 +127,8 @@ export default function AdminPrestasiClient({ achievements: initial }: Props) {
                   return (
                     <tr key={a.id}>
                       <td>
-                        <div className="flex items-center gap-3">
-                          {a.imageUrl && (
-                            <img src={a.imageUrl} alt={a.title} className="w-10 h-10 object-cover rounded shadow-sm bg-slate-100" />
-                          )}
-                          <div>
-                            <p className="font-medium text-slate-900 dark:text-zinc-100 text-sm">{a.title}</p>
-                            {a.description && <p className="text-xs text-slate-400 dark:text-zinc-500 mt-0.5 truncate max-w-xs">{a.description}</p>}
-                          </div>
-                        </div>
+                        <p className="font-medium text-slate-900 text-sm">{a.title}</p>
+                        {a.description && <p className="text-xs text-slate-400 mt-0.5 truncate max-w-xs">{a.description}</p>}
                       </td>
                       <td><span className={`badge ${badgeClass}`}>{label}</span></td>
                       <td className="font-mono text-xs text-slate-400">{a.year}</td>
