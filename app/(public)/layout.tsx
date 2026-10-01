@@ -1,5 +1,6 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp';
 import { db } from '@/lib/db';
 import type { Metadata } from 'next';
 
@@ -13,14 +14,11 @@ async function getLayoutSettings() {
       key: {
         in: [
           'school_name',
-          'school_name_short',
           'school_address',
           'school_phone',
           'school_email',
           'school_whatsapp',
           'school_accreditation',
-          'school_npsn',
-          'school_badge_text',
           'ppdb_year',
         ],
       },
@@ -34,15 +32,17 @@ export default async function PublicLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await getLayoutSettings();
+  const layoutSettings = await getLayoutSettings();
 
   return (
     <>
-      <Navbar settings={settings} />
-      <main className="min-h-[calc(100dvh-4rem)] pt-[100px] sm:pt-[116px]">
-        {children}
-      </main>
-      <Footer settings={settings} />
+      <Navbar settings={layoutSettings} />
+      <main className="min-h-[calc(100dvh-4rem)]">{children}</main>
+      <Footer settings={layoutSettings} />
+      <FloatingWhatsApp
+        whatsapp={layoutSettings.school_whatsapp}
+        phone={layoutSettings.school_phone}
+      />
     </>
   );
 }

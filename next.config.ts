@@ -7,6 +7,28 @@ const nextConfig: NextConfig = {
         pathname: '/uploads/**',
         search: '',
       },
+      {
+        pathname: '/assets/**',
+        search: '',
+      },
+      {
+        pathname: '/**',
+        search: '',
+      },
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
     ],
   },
   experimental: {
